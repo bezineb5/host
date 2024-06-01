@@ -417,6 +417,7 @@ const (
 	boardZero2W   revisionCode = 0x12 << boardShift
 	board400      revisionCode = 0x13 << boardShift
 	boardCM4      revisionCode = 0x14 << boardShift
+	board5B       revisionCode = 0x17 << boardShift
 )
 
 // features represents the different features on various Raspberry Pi boards.
@@ -514,6 +515,10 @@ func (f *features) init(v uint32) error {
 		f.hdrHDMI = true
 	case boardCM4:
 		// Compute Module does not have a SODIMM header.
+	case board5B:
+		f.hdrP1P40 = true
+		f.audioLeft41 = true
+		f.hdrHDMI = true
 	default:
 		return fmt.Errorf("rpi: unknown hardware version: 0x%x", r)
 	}
